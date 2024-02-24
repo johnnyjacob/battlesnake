@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"go.uber.org/zap"
+	"johnnyjacob/battlesnake/logger"
 )
 
 func main() {
-	logger, err := zap.NewProduction()
+	logger, err := logger.NewLogger()
 	if err != nil {
 		fmt.Println("Unable to Initialize logger.")
 		panic("unable to init logger")
