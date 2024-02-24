@@ -1,4 +1,4 @@
-package main
+package models
 
 // {
 // 	"apiversion": "1",
