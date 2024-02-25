@@ -15,8 +15,8 @@ func main() {
 	}
 	ctx := context.Background()
 
-	snake := Snake{}
-	err = snake.Run(ctx, logger)
+	server := Server{}
+	err = server.Run(ctx, logger)
 	if err != nil {
 		logger.Error("Error")
 	}

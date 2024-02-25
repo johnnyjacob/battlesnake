@@ -7,22 +7,18 @@ import (
 	"net/http"
 )
 
-type Snake struct {
+type Server struct {
 }
 
-func (snake *Snake) Run(ctx context.Context, log logger.Logger) error {
-	err := snake.startServer(ctx, log)
+func (server *Server) Run(ctx context.Context, log logger.Logger) error {
+	err := server.startServer(ctx, log)
 	if err != nil {
 		log.Error(err.Error())
 	}
 	return err
 }
 
-func (snake *Snake) handleStart(w http.ResponseWriter, req *http.Request) {
-
-}
-
-func (snake *Snake) startServer(ctx context.Context, log logger.Logger) error {
+func (snake *Server) startServer(ctx context.Context, log logger.Logger) error {
 	log.Info("starting servers...")
 
 	mux := http.NewServeMux()
@@ -30,7 +26,9 @@ func (snake *Snake) startServer(ctx context.Context, log logger.Logger) error {
 	metaService := service.NewMetaService(log)
 	mux.HandleFunc("GET /", metaService.HandleMeta)
 
-	mux.HandleFunc("POST /start", snake.handleStart)
+	gameService := service.NewGameService(log)
+	mux.HandleFunc("POST /start", gameService.HandleStart)
+	mux.HandleFunc("POST /move", gameService.HandleMove)
 
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
