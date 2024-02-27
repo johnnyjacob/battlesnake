@@ -7,7 +7,7 @@ import (
 	"johnnyjacob/battlesnake/board"
 	"johnnyjacob/battlesnake/logger"
 	"johnnyjacob/battlesnake/models"
-	"johnnyjacob/battlesnake/move"
+	"johnnyjacob/battlesnake/planner"
 	"net/http"
 )
 
@@ -51,7 +51,7 @@ func (service *GameService) HandleMove(w http.ResponseWriter, req *http.Request)
 	b.SetSize(board1.Height)
 
 	// Recommend move
-	planner := move.NewRandomMove()
+	planner := planner.NewRandomPlanner()
 	dir := planner.Recommend(b)
 	service.Log.Info(string(dir))
 

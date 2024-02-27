@@ -1,4 +1,4 @@
-package move
+package planner
 
 import (
 	"johnnyjacob/battlesnake/board"
@@ -6,17 +6,17 @@ import (
 	"math/rand"
 )
 
-type RandomMove struct {
-	Move
+type RandomPlanner struct {
+	Planner
 }
 
-func (m RandomMove) Recommend(b *board.BoardGrid) models.Direction {
+func (m RandomPlanner) Recommend(b *board.BoardGrid) models.Direction {
 	dirs := []models.Direction{models.MOVE_DOWN, models.MOVE_LEFT, models.MOVE_RIGHT, models.MOVE_UP}
 	selection := rand.Intn(4)
 
 	return dirs[selection]
 }
 
-func NewRandomMove() Move {
-	return RandomMove{}
+func NewRandomPlanner() Planner {
+	return RandomPlanner{}
 }

@@ -1,10 +1,10 @@
-package move
+package planner
 
 import (
 	"johnnyjacob/battlesnake/board"
 	"johnnyjacob/battlesnake/models"
 )
 
-type Move interface {
+type Planner interface {
 	Recommend(b *board.BoardGrid) models.Direction
 }
