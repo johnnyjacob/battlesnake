@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"johnnyjacob/battlesnake/board"
 	"johnnyjacob/battlesnake/logger"
 	"johnnyjacob/battlesnake/service"
 	"net/http"
@@ -26,9 +27,11 @@ func (snake *Server) startServer(ctx context.Context, log logger.Logger) error {
 	metaService := service.NewMetaService(log)
 	mux.HandleFunc("GET /", metaService.HandleMeta)
 
-	gameService := service.NewGameService(log)
+	board := board.NewBoardGrid()
+	gameService := service.NewGameService(log, board)
 	mux.HandleFunc("POST /start", gameService.HandleStart)
 	mux.HandleFunc("POST /move", gameService.HandleMove)
+	mux.HandleFunc("POST /end", gameService.HandleEnd)
 
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {

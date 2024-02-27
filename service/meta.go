@@ -22,7 +22,8 @@ func NewMetaService(l logger.Logger) MetaHandlers {
 
 func (service *MetaService) HandleMeta(w http.ResponseWriter, req *http.Request) {
 	//FIXME if it is not / then return 404
-	meta := GetSnakeMeta()
+	service.Log.Info("Handling meta request")
+	meta := getSnakeMeta()
 	j, err := json.Marshal(meta)
 	if err != nil {
 		//Fixme
@@ -34,7 +35,7 @@ func (service *MetaService) HandleMeta(w http.ResponseWriter, req *http.Request)
 	json.NewEncoder(w).Encode(meta)
 }
 
-func GetSnakeMeta() *models.SnakeMeta {
+func getSnakeMeta() *models.SnakeMeta {
 
 	return &models.SnakeMeta{
 		ApiVersion: 0,

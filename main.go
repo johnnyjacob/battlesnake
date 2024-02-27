@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"johnnyjacob/battlesnake/logger"
+	"johnnyjacob/battlesnake/version"
 )
 
 func main() {
@@ -13,6 +14,7 @@ func main() {
 		fmt.Println("Unable to Initialize logger.")
 		panic("unable to init logger")
 	}
+	logger.Info(version.Version)
 	ctx := context.Background()
 
 	server := Server{}
