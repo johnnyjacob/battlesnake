@@ -7,6 +7,7 @@ import (
 	"johnnyjacob/battlesnake/board"
 	"johnnyjacob/battlesnake/logger"
 	"johnnyjacob/battlesnake/models"
+	"johnnyjacob/battlesnake/move"
 	"net/http"
 )
 
@@ -31,6 +32,7 @@ func (service *GameService) HandleStart(w http.ResponseWriter, req *http.Request
 }
 
 func (service *GameService) HandleMove(w http.ResponseWriter, req *http.Request) {
+	service.Log.Info("Handling Move...")
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
 		fmt.Println(err)
@@ -43,12 +45,18 @@ func (service *GameService) HandleMove(w http.ResponseWriter, req *http.Request)
 	if err != nil {
 		fmt.Println("unmarshall error", err)
 	}
-	service.Log.Info(string(body))
+	service.Log.Debug(string(body))
+	// Create a new grid representation
+	b := board.NewBoardGrid()
+	b.SetSize(board1.Height)
 
-	//TODO : Calculate next move
+	// Recommend move
+	planner := move.NewRandomMove()
+	dir := planner.Recommend(b)
+	service.Log.Info(string(dir))
 
-	// TODO : Send response
-
+	move := models.MoveResponse{Move: dir}
+	json.NewEncoder(w).Encode(move)
 }
 
 func (service *GameService) HandleEnd(w http.ResponseWriter, req *http.Request) {

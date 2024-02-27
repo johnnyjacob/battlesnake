@@ -26,11 +26,11 @@ func (service *MetaService) HandleMeta(w http.ResponseWriter, req *http.Request)
 	meta := getSnakeMeta()
 	j, err := json.Marshal(meta)
 	if err != nil {
-		//Fixme
+		service.Log.Error("Fatal : Unable to marshal meta for response.")
 		return
 	}
 
-	service.Log.Info(string(j))
+	service.Log.Info("Sending : " + string(j))
 
 	json.NewEncoder(w).Encode(meta)
 }
