@@ -1,7 +1,7 @@
 package models
 
 type SnakeMeta struct {
-	ApiVersion int    `json:"apiVersion"`
+	ApiVersion string `json:"apiVersion"`
 	Author     string `json:"author"`
 	Color      string `json:"color"`
 	Head       string `json:"head"`

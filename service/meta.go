@@ -38,7 +38,7 @@ func (service *MetaService) HandleMeta(w http.ResponseWriter, req *http.Request)
 func getSnakeMeta() *models.SnakeMeta {
 
 	return &models.SnakeMeta{
-		ApiVersion: 0,
+		ApiVersion: "1",
 		Author:     "johnnyjacob",
 		Color:      "#FF00FF",
 		Head:       "default",
