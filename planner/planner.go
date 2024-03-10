@@ -6,5 +6,5 @@ import (
 )
 
 type Planner interface {
-	Recommend(b *board.BoardGrid) models.Direction
+	Recommend(b *board.BoardGrid, snake *models.Snake) models.Direction
 }

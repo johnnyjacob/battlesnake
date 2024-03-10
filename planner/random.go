@@ -10,7 +10,7 @@ type RandomPlanner struct {
 	Planner
 }
 
-func (m RandomPlanner) Recommend(b *board.BoardGrid) models.Direction {
+func (m RandomPlanner) Recommend(b *board.BoardGrid, snake *models.Snake) models.Direction {
 	dirs := []models.Direction{models.MOVE_DOWN, models.MOVE_LEFT, models.MOVE_RIGHT, models.MOVE_UP}
 	selection := rand.Intn(4)
 

@@ -9,7 +9,7 @@ type DefaultPlanner struct {
 	Planner
 }
 
-func (m DefaultPlanner) Recommend(b *board.BoardGrid) models.Direction {
+func (m DefaultPlanner) Recommend(b *board.BoardGrid, snake *models.Snake) models.Direction {
 	return models.MOVE_UP
 }
 

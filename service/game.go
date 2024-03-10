@@ -40,19 +40,24 @@ func (service *GameService) HandleMove(w http.ResponseWriter, req *http.Request)
 	}
 
 	// Unmarshal the JSON into a User struct
-	var board1 models.Board
-	err = json.Unmarshal([]byte(body), &board1)
+	var moveReq models.MoveRequest
+
+	err = json.Unmarshal([]byte(body), &moveReq)
 	if err != nil {
 		fmt.Println("unmarshall error", err)
 	}
 	service.Log.Debug(string(body))
+
 	// Create a new grid representation
 	b := board.NewBoardGrid()
-	b.SetSize(board1.Height)
+	b.SetSize(moveReq.Board.Height)
+	b.SetState(moveReq.Board)
+
+	service.Log.Info(fmt.Sprint(b))
 
 	// Recommend move
-	planner := planner.NewRandomPlanner()
-	dir := planner.Recommend(b)
+	planner := planner.NewCollisionAvoidancePlanner()
+	dir := planner.Recommend(b, &moveReq.You)
 	service.Log.Info(string(dir))
 
 	move := models.MoveResponse{Move: dir}

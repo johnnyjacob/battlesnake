@@ -41,12 +41,15 @@ type Snake struct {
 }
 
 type RulesetSettings struct {
+	FoodSpawnChance     int `json:"foodSpawnChance"`
+	MinimumFood         int `json:"minimumFood"`
+	HazardDamagePerTurn int `json:"hazardDamagePerTurn"`
 }
 
 type RuleSet struct {
-	Name     string            `json:"name"`
-	Version  string            `json:"version"`
-	Settings []RulesetSettings `json:"settings"`
+	Name     string          `json:"name"`
+	Version  string          `json:"version"`
+	Settings RulesetSettings `json:"settings"`
 }
 
 type Game struct {
