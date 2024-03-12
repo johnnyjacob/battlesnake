@@ -48,16 +48,9 @@ func (service *GameService) HandleMove(w http.ResponseWriter, req *http.Request)
 	}
 	service.Log.Debug(string(body))
 
-	// Create a new grid representation
-	b := board.NewBoardGrid()
-	b.SetSize(moveReq.Board.Height)
-	b.SetState(moveReq.Board)
-
-	service.Log.Info(fmt.Sprint(b))
-
 	// Recommend move
 	planner := planner.NewCollisionAvoidancePlanner()
-	dir := planner.Recommend(b, &moveReq.You)
+	dir := planner.Recommend(&moveReq)
 	service.Log.Info(string(dir))
 
 	move := models.MoveResponse{Move: dir}

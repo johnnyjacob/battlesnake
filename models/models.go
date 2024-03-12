@@ -36,7 +36,7 @@ type Snake struct {
 	Head           Coords         `json:"head"`
 	Length         int            `json:"length"`
 	Shout          string         `json:"shout"`
-	Squad          int            `json:"squad"`
+	Squad          string         `json:"squad"`
 	Customizations Customizations `json:"customizations"`
 }
 
